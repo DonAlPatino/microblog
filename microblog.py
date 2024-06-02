@@ -1,7 +1,7 @@
 import sqlalchemy as sa
 import sqlalchemy.orm as so
-from appl import app, db
-from appl.models import User, Post
+from app import app, db
+from app.models import User, Post
 
 
 @app.shell_context_processor

@@ -1,20 +1,24 @@
+import logging
+from logging.handlers import SMTPHandler, RotatingFileHandler
+import os
 from flask import Flask
-from config import Config
-from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-import logging
-import os
-from logging.handlers import SMTPHandler,RotatingFileHandler
+from flask_login import LoginManager
+from flask_mail import Mail
+from config import Config
 
 app = Flask(__name__)
-login = LoginManager(app)
-login.login_view = 'login'
 app.config.from_object(Config)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
+login = LoginManager(app)
+login.login_view = 'login'
+mail = Mail(app)
+#mail.init_app(app)
 
-
+#mail.MAIL_SERVER = app.config['MAIL_SERVER']
+#mail.MAIL_PORT = app.config['MAIL_PORT']
 # not Debug, env is defined
 if not app.debug:
     if app.config['MAIL_SERVER']:
@@ -43,4 +47,4 @@ if not app.debug:
     app.logger.setLevel(logging.INFO)
     app.logger.info('Microblog startup')
 
-from appl import routes, models, errors
+from app import routes, models, errors
