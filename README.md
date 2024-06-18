@@ -20,3 +20,11 @@ aiosmtpd -n -c aiosmtpd.handlers.Debugging -l localhost:8025
 
 export MAIL_SERVER=localhost
 export MAIL_PORT=8025
+
+====================
+[extractors]
+jinja2 = jinja2.ext:babel_extract
+====================
+pybabel extract -F babel.cfg -k _l -o messages.pot .
+pybabel init -i messages.pot -d app/translations -l ru
+pybabel compile -d app/translations
