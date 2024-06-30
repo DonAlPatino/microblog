@@ -1,5 +1,7 @@
 "# microblog" 
 
+python tests.py
+
 https://habr.com/ru/articles/804245/
 
 flask db init

@@ -1,17 +1,23 @@
 #Методы setUp() и tearDown() - это специальные методы, которые платформа модульного тестирования выполняет до и после каждого теста соответственно.
 
-import os
-os.environ['DATABASE_URL'] = 'sqlite://'
+from config import Config
+from app import create_app
+
+
+class TestConfig(Config):
+    TESTING = True
+    SQLALCHEMY_DATABASE_URI = 'sqlite://'
 
 from datetime import datetime, timezone, timedelta
 import unittest
-from app import app, db
+from app import db
 from app.models import User, Post
 
 
 class UserModelCase(unittest.TestCase):
     def setUp(self):
-        self.app_context = app.app_context()
+        self.app = create_app(TestConfig)
+        self.app_context = self.app.app_context()
         self.app_context.push()
         db.create_all()
 
