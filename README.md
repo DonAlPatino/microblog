@@ -29,4 +29,6 @@ jinja2 = jinja2.ext:babel_extract
 ====================
 pybabel extract -F babel.cfg -k _l -o messages.pot .
 pybabel init -i messages.pot -d app/translations -l ru
+
+#При каждом изменении интерфеса
 pybabel compile -d app/translations
