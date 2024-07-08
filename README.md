@@ -32,3 +32,8 @@ pybabel init -i messages.pot -d app/translations -l ru
 
 #При каждом изменении интерфеса
 pybabel compile -d app/translations
+
+get list indexes
+curl http://localhost:9200/_aliases
+
+app.elasticsearch.indices.delete(index='posts')
