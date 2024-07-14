@@ -17,3 +17,4 @@ class Config:
   POSTS_PER_PAGE = 3
   LANGUAGES = ['en', 'ru']
   MS_TRANSLATOR_KEY = os.environ.get('MS_TRANSLATOR_KEY') or 'fucking_shit'
+  LOG_TO_STDOUT = os.environ.get('LOG_TO_STDOUT')
