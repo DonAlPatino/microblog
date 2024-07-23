@@ -1,0 +1,47 @@
+version: "3.0"
+services:
+  microblog:
+    container_name: "microblog"
+    build: .
+    environment:
+      SECRET_KEY: 52cb883e323b48d78a0a36e8e951ba4a
+      DATABASE_URL: mysql+pymysql://microblog:dbpassword@mysql:3306/microblog
+      MS_TRANSLATOR_KEY: 'fucking_shit'
+      MAIL_SERVER: localhost
+      MAIL_PORT: 8025
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+      LOG_TO_STDOUT: 1
+    ports:
+      - '8000:5000'
+    networks:
+      - microblog-network     
+    depends_on:
+      - mysql
+      - elasticsearch
+  mysql:
+    container_name: "mysql"
+    image: mysql:8.4.1
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: microblog
+      MYSQL_USER: microblog
+      MYSQL_PASSWORD: dbpassword
+    ports:
+      - '3306:3306'
+    networks:
+      - microblog-network
+  elasticsearch:
+    container_name: "elasticsearch"
+    image: elasticsearch:8.11.1
+    restart: always
+    environment:
+      discovery.type: single-node
+      xpack.security.enabled: false
+    ports:
+      - '9200:9200'
+    networks:
+      - microblog-network  
+networks:
+  microblog-network:
+    driver: bridge

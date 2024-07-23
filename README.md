@@ -43,6 +43,7 @@ app.elasticsearch.indices.delete(index='posts')
 вы должны сгенерировать свой собственный секретный ключ (SECRET_KEY). Вы можете использовать следующую команду:
 python3 -c "import uuid; print(uuid.uuid4().hex)"
 ====================================
+windows:
 waitress-serve --listen=localhost:8000 microblog:app
 
 docker run --name mysql -d --rm -p 3306:3306 --env="MYSQL_ROOT_PASSWORD=password" -t mysql:8.4.1 
@@ -63,3 +64,8 @@ mysql> quit;
 (venv) $ flask translate compile               # upgrade the translations
 (venv) $ sudo supervisorctl start microblog    # start a new server
 ========================
+
+docker build -t microblog:latest .
+docker images
+docker run --name microblog -d -p 8000:5000 --rm microblog:latest
+docker stop microblog
